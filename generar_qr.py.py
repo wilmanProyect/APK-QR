@@ -2,7 +2,7 @@ import pandas as pd
 import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import os
-
+#hello to work
 def generar_qr_con_texto(data, output_path, code):
     # Crear una instancia del objeto QRCode
     qr = qrcode.QRCode(
