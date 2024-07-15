@@ -63,8 +63,9 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
         qr_text = (f"ID: {id_code}\n"
                    f"Beneficiario: {beneficiario}\n"
                    f"Comunidad: {comunidad}\n"
-                   f"GPS 1: {gps1}\n"
-                   f"GPS 2: {gps2}")
+                   f"Ubicacion:\n"
+                   f"       GPS 1: {gps1}\n"
+                   f"       GPS 2: {gps2}")
         
         filename = os.path.join(output_dir, f"{id_code}.png")  # Guardar con el nombre del ID
         generar_qr_con_texto(qr_text, filename, id_code)
@@ -75,7 +76,7 @@ if __name__ == "__main__":
     hoja = "Chirimoya"  # Reemplaza con el nombre de la hoja
     columna = 7  # Reemplaza con el índice de la columna de los códigos (0 para A, 1 para B, etc.)
     fila_inicio = 10  # Fila de inicio
-    fila_fin = 56  # Fila de fin
+    fila_fin = 12  # Fila de fin
     output_dir = r"D:\MyWork\APK QR\qr_generados"  # Carpeta donde se guardarán los QR
 
     procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fin, output_dir)
