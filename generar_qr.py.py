@@ -2,8 +2,13 @@ import pandas as pd
 import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import os
+<<<<<<< HEAD
 
+def generar_qr_con_texto(data, output_path, texto_id, texto_info):
+=======
+#hello to work
 def generar_qr_con_texto(data, output_path, code):
+>>>>>>> 79dbe2dbe6784c3b59f6e953570d66a62ffacf69
     # Crear una instancia del objeto QRCode
     qr = qrcode.QRCode(
         version=2,
@@ -17,7 +22,7 @@ def generar_qr_con_texto(data, output_path, code):
     
     # Añadir texto debajo del QR
     ancho, alto = img.size
-    nuevo_alto = alto + 80  # Espacio para el texto
+    nuevo_alto = alto + 150  # Espacio para el texto
     img_con_texto = Image.new('RGB', (ancho, nuevo_alto), 'white')
     img_con_texto.paste(img, (0, 0))
     
@@ -25,30 +30,19 @@ def generar_qr_con_texto(data, output_path, code):
     font = ImageFont.load_default()
     
     # Dibujar el primer texto (ID)
-    text_bbox = draw.textbbox((0, 0), code, font=font)
-    text_width = text_bbox[2] - text_bbox[0]
-    text_height = text_bbox[3] - text_bbox[1]
-    x = (ancho - text_width) / 2
     y = alto + 5
-    draw.text((x, y), code, font=font, fill='#73BF43')
-    
-    # Añadir el texto adicional debajo del ID con espacio
-    text2 = "Fundacion Natura Bolivia"
-    text2_bbox = draw.textbbox((0, 0), text2, font=font)
-    text2_width = text2_bbox[2] - text2_bbox[0]
-    x2 = (ancho - text2_width) / 2
-    y2 = y + text_height + 20  # Añadir un espacio claro entre las líneas
-    draw.text((x2, y2), text2, font=font, fill='#73BF43')
+    draw.text((10, y), texto_info, font=font, fill='#73BF43')
     
     img_con_texto.save(output_path)
 
-def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fin, output_dir):
+def procesar_excel_y_generar_qrs(excel_path, hoja, columna_id, fila_inicio, fila_fin, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     
     df = pd.read_excel(excel_path, sheet_name=hoja, header=None)  # leer sin encabezados
     print("Columnas disponibles en el DataFrame:", df.columns)
     
+<<<<<<< HEAD
     # Obtener la comunidad y el beneficiario
     comunidad = df.iloc[3, 3]  # D4 -> fila 4, columna 1 (índice 3,1)
     beneficiario = df.iloc[4, 3]  # D5 -> fila 5, columna 1 (índice 4,1)
@@ -69,13 +63,43 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
         filename = os.path.join(output_dir, f"{id_code}.png")  # Guardar con el nombre del ID
         generar_qr_con_texto(qr_text, filename, id_code)
         print(f"QR para {id_code} guardado en {filename}")
+=======
+    comunidad = df.iloc[3, 1]  # Comunidad (celda D4 -> index 3, column 1)
+    propietario = df.iloc[4, 1]  # Nombre del propietario (celda D5 -> index 4, column 1)
+    
+    for i in range(fila_inicio-1, min(fila_fin, len(df))):
+        if i >= len(df):
+            continue
+        gps1 = str(df.iloc[i, 3])  # Puntos GPS 1
+        gps2 = str(df.iloc[i, 4])  # Puntos GPS 2
+        id = str(df.iloc[i, columna_id])  # ID
+        
+        if pd.isna(gps1) or pd.isna(gps2) or pd.isna(id):
+            print(f"Omitiendo fila {i+1} por datos faltantes")
+            continue
+        
+        texto_info = (f"ID: {id}\n"
+                      f"Propietario: {propietario}\n"
+                      f"Comunidad: {comunidad}\n"
+                      f"Ubicación:\n"
+                      f"    GPS 1: {gps1}\n"
+                      f"    GPS 2: {gps2}")
+        
+        filename = os.path.join(output_dir, f"{id}.png")  # Guardar con el nombre del ID
+        generar_qr_con_texto(texto_info, filename, id, texto_info)
+        print(f"QR para {id} guardado en {filename}")
+>>>>>>> 8ae938190c4297542f32e670005b9df6adda00ee
 
 if __name__ == "__main__":
     excel_path = r"D:\MyWork\APK QR\planilla de almendras para QR.xlsx"  # Reemplaza con la ruta a tu archivo Excel
     hoja = "Chirimoya"  # Reemplaza con el nombre de la hoja
+<<<<<<< HEAD
     columna = 7  # Reemplaza con el índice de la columna de los códigos (0 para A, 1 para B, etc.)
+=======
+    columna_id = 8  # Reemplaza con el índice de la columna de los códigos (por ejemplo, 8 para la columna H)
+>>>>>>> 8ae938190c4297542f32e670005b9df6adda00ee
     fila_inicio = 10  # Fila de inicio
     fila_fin = 56  # Fila de fin
     output_dir = r"D:\MyWork\APK QR\qr_generados"  # Carpeta donde se guardarán los QR
 
-    procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fin, output_dir)
+    procesar_excel_y_generar_qrs(excel_path, hoja, columna_id, fila_inicio, fila_fin, output_dir)
