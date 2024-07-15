@@ -50,8 +50,8 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
     print("Columnas disponibles en el DataFrame:", df.columns)
     
     # Obtener la comunidad y el beneficiario
-    comunidad = df.iloc[3, 3]  # D4 -> fila 4, columna 1 (índice 3,1)
-    beneficiario = df.iloc[4, 3]  # D5 -> fila 5, columna 1 (índice 4,1)
+    comunidad = df.iloc[3, 3]  # D4 -> fila 4, columna 4 (índice 3,3)
+    beneficiario = df.iloc[4, 3]  # D5 -> fila 5, columna 4 (índice 4,3)
     
     for i in range(fila_inicio-1, fila_fin):
         # Obtener datos de cada fila
