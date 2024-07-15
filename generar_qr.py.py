@@ -48,18 +48,34 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
     
     df = pd.read_excel(excel_path, sheet_name=hoja, header=None)  # leer sin encabezados
     print("Columnas disponibles en el DataFrame:", df.columns)
+    
+    # Obtener la comunidad y el beneficiario
+    comunidad = df.iloc[3, 3]  # D4 -> fila 4, columna 1 (índice 3,1)
+    beneficiario = df.iloc[4, 3]  # D5 -> fila 5, columna 1 (índice 4,1)
+    
     for i in range(fila_inicio-1, fila_fin):
-        code = str(df.iloc[i, columna])
-        filename = os.path.join(output_dir, f"{code}.png")  # Guardar con el nombre del código
-        generar_qr_con_texto(code, filename, code)
-        print(f"QR para {code} guardado en {filename}")
+        # Obtener datos de cada fila
+        id_code = str(df.iloc[i, columna])
+        gps1 = str(df.iloc[i, 3])
+        gps2 = str(df.iloc[i, 4])
+        
+        # Generar el texto que irá en el QR
+        qr_text = (f"ID: {id_code}\n"
+                   f"Beneficiario: {beneficiario}\n"
+                   f"Comunidad: {comunidad}\n"
+                   f"GPS 1: {gps1}\n"
+                   f"GPS 2: {gps2}")
+        
+        filename = os.path.join(output_dir, f"{id_code}.png")  # Guardar con el nombre del ID
+        generar_qr_con_texto(qr_text, filename, id_code)
+        print(f"QR para {id_code} guardado en {filename}")
 
 if __name__ == "__main__":
     excel_path = r"D:\MyWork\APK QR\planilla de almendras para QR.xlsx"  # Reemplaza con la ruta a tu archivo Excel
-    hoja = "Carmencita (3)"  # Reemplaza con el nombre de la hoja
+    hoja = "Chirimoya"  # Reemplaza con el nombre de la hoja
     columna = 7  # Reemplaza con el índice de la columna de los códigos (0 para A, 1 para B, etc.)
     fila_inicio = 10  # Fila de inicio
-    fila_fin = 179  # Fila de fin
+    fila_fin = 56  # Fila de fin
     output_dir = r"D:\MyWork\APK QR\qr_generados"  # Carpeta donde se guardarán los QR
 
     procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fin, output_dir)
