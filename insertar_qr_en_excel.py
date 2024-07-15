@@ -31,3 +31,4 @@ if __name__ == "__main__":
     columna_codigo = 8  # Columna que contiene los códigos QR (por ejemplo, 8 para la columna H)
 
     insertar_imagenes_en_excel(excel_path, hoja, fila_inicio, fila_fin, columna_qr, carpeta_qrs, columna_codigo)
+    
