@@ -17,7 +17,7 @@ def generar_qr_con_texto(data, output_path, text):
     
     # Añadir texto debajo del QR
     ancho, alto = img.size
-    nuevo_alto = alto + 130  # Espacio para el texto
+    nuevo_alto = alto + 150  # Espacio para el texto
     img_con_texto = Image.new('RGB', (ancho, nuevo_alto), 'white')
     img_con_texto.paste(img, (0, 0))
     
@@ -56,6 +56,7 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
         # Generar el texto que irá en el QR y debajo del QR
         qr_text = (f"ID: {id_code}\n"
                    f"Beneficiario: {beneficiario}\n"
+                   f"Municipio: San Ignacio\n"
                    f"Comunidad: {comunidad}\n"
                    f"Fecha: 14 de junio del 2024\n"
                    f"Ubicacion:\n"
@@ -65,6 +66,7 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
         
         text_below_qr = (f"ID: {id_code}\n"
                          f"Beneficiario: {beneficiario}\n"
+                         f"Municipio: San Ignacio\n"
                          f"Comunidad: {comunidad}\n"
                          f"Fecha: 14 de junio del 2024 \n"
                          f"Ubicacion:\n"
