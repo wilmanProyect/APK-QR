@@ -23,7 +23,7 @@ def insertar_imagenes_en_excel(excel_path, hoja, fila_inicio, fila_fin, columna_
 
 if __name__ == "__main__":
     excel_path = r"D:\MyWork\APK QR\planilla de almendras para QR.xlsx"  # Reemplaza con la ruta a tu archivo Excel
-    hoja = "Carmencita (3)"  # Reemplaza con el nombre de la hoja
+    hoja = "Carmencita 3"  # Reemplaza con el nombre de la hoja
     fila_inicio = 10  # Fila de inicio
     fila_fin = 179  # Fila de fin
     columna_qr = 9  # Columna donde se insertarán las imágenes (por ejemplo, 9 para la columna I)
@@ -31,4 +31,3 @@ if __name__ == "__main__":
     columna_codigo = 8  # Columna que contiene los códigos QR (por ejemplo, 8 para la columna H)
 
     insertar_imagenes_en_excel(excel_path, hoja, fila_inicio, fila_fin, columna_qr, carpeta_qrs, columna_codigo)
-#
