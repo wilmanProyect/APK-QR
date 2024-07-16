@@ -60,7 +60,7 @@ def procesar_excel_y_generar_qrs(excel_path, hoja, columna, fila_inicio, fila_fi
                    f"Fecha: 14 de junio del 2024\n"
                    f"Ubicacion:\n"
                    f"       Longitud: {gps1}\n"
-                   f"       Latitud: {gps2}"
+                   f"       Latitud: {gps2}\n"
                    f"Fundacion Natura Bolivia")
         
         text_below_qr = (f"ID: {id_code}\n"
